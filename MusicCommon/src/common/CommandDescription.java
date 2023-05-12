@@ -18,10 +18,12 @@ public class CommandDescription implements Callable {
         this.ObjectArgument = ObjectArgument;
     }
 
-    public class Builder {
+    public static class Builder {
         private String name;
         private List<String> oneLineArguments;
         private List<Object> ObjectArgument;
+
+        private Caller caller;
 
         public Builder setName(String name) {
             this.name = name;
@@ -39,7 +41,7 @@ public class CommandDescription implements Callable {
         }
 
         public Builder setCaller(Caller caller) {
-            CommandDescription.this.caller = caller;
+            this.caller = caller;
             return this;
         }
         public CommandDescription build() {
