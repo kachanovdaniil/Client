@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="MusicCommon1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Programming/LabWork6/Client/lib/MusicCommon.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

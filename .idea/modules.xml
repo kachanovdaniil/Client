@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Programming/LabWork6/Client/Client.iml" filepath="$PROJECT_DIR$/Programming/LabWork6/Client/Client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DumbTesting/DumbTesting.iml" filepath="$PROJECT_DIR$/DumbTesting/DumbTesting.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/ITMO.iml" filepath="$PROJECT_DIR$/.idea/ITMO.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Programming/LabWork4/LabWork4.iml" filepath="$PROJECT_DIR$/Programming/LabWork4/LabWork4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Programming/LabWork5/LabWork5.iml" filepath="$PROJECT_DIR$/Programming/LabWork5/LabWork5.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Programming/LabWork5Modified/LabWork5Modified.iml" filepath="$PROJECT_DIR$/Programming/LabWork5Modified/LabWork5Modified.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Programming/LabWork6/MusicCommon/MusicCommon.iml" filepath="$PROJECT_DIR$/Programming/LabWork6/MusicCommon/MusicCommon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Programming/LabWork6/Server/Server.iml" filepath="$PROJECT_DIR$/Programming/LabWork6/Server/Server.iml" />
+    </modules>
+  </component>
+</project>
