@@ -2,7 +2,6 @@ package managers;
 
 import caller.Callable;
 
-
 import java.util.HashMap;
 import java.util.Map;
 

@@ -4,9 +4,10 @@
  */
 package common;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class MusicBand implements Comparable<MusicBand>, IDAccess {
+public class MusicBand implements Comparable<MusicBand>, IDAccess, Serializable {
 
     /**
      * This field contains an intermediate value for the unique identifier of the group.

@@ -1,18 +1,32 @@
 package modules;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 
 import common.CommandDescription;
 import managers.AbstractLoader;
 import managers.BaseTextReceiver;
+import managers.LoadDescription;
 
 public class Loader extends AbstractLoader {
 
+    private static final Map<Class<? extends Number>, Function<String, ? extends Number>> PARSERS = new HashMap<>();
+
+    static {
+        PARSERS.put(Integer.class, Integer::valueOf);
+        PARSERS.put(Long.class, Long::valueOf);
+        PARSERS.put(Float.class, Float::valueOf);
+        PARSERS.put(Double.class, Double::valueOf);
+        PARSERS.put(Byte.class, Byte::valueOf);
+        PARSERS.put(Short.class, Short::valueOf);
+    }
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-    public CommandDescription parseCommand(String command, Map<String, CommandDescription> commandDescriptionMap) {
+    public CommandDescription parseCommand(Map<String, CommandDescription> commandDescriptionMap, String command) {
         String[] commandParts = command.split(" ");
         if (commandParts.length == 0) {
             throw new RuntimeException("Command is empty!");
@@ -27,28 +41,39 @@ public class Loader extends AbstractLoader {
                     throw new RuntimeException("Wrong argument!");
                 }
             }
+            return commandDescription;
         } else {
             throw new RuntimeException("Unknown command!");
         }
-        return commandDescriptionMap.get(commandParts[0]);
     }
 
-    @Override
-    public <T> T enterWrapper(String message, Class<T> type, BaseTextReceiver textReceiver){
-        textReceiver.print(message);
+
+    public <T extends LoadDescription<Enum>> T enterEnum(String s, T t, BaseTextReceiver baseTextReceiver) {
+        baseTextReceiver.print(s);
         try {
-            return (T) reader.readLine().valueOf(type);
-        } catch (Exception e) {
+            String line = reader.readLine();
+            return (T)t.setValue(Enum.valueOf((Class<Enum>)t.getType(), line));
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public String enterString(String message, BaseTextReceiver textReceiver){
-        textReceiver.print(message);
+    public <T extends LoadDescription<Number>> T enterWrapper(String s, T t, BaseTextReceiver baseTextReceiver) {
+        baseTextReceiver.print(s);
         try {
-            return reader.readLine();
-        } catch (Exception e) {
+            return (T)t.setValue(PARSERS.get(t.getType()).apply(reader.readLine()));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public LoadDescription<String> enterString(String s, LoadDescription<String> description, BaseTextReceiver baseTextReceiver) {
+        baseTextReceiver.print(s);
+        try {
+            return description.setValue(reader.readLine());
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

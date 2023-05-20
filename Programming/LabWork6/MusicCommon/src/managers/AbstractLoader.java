@@ -1,31 +1,35 @@
 package managers;
 
-public abstract class AbstractLoader {
+import java.util.List;
 
-    public <T> void enter(T object, String message, LoadDescription<?> description, BaseTextReceiver textReceiver) {
+public abstract class AbstractLoader {
+     public <T extends LoadDescription<?>> T enter(String message, T description, BaseTextReceiver textReceiver) {
         if (isWrapper(description.getType())) {
-            enterWrapper(object, message, textReceiver);
+            return (T) enterWrapper(message, (LoadDescription<Number>) description, textReceiver);
         } else if (description.getType().equals(String.class)) {
-            enterString((String) object, message, textReceiver);
+            return (T) enterString(message, (LoadDescription<String>) description, textReceiver);
         } else if (description.getType().isEnum()){
-            enterEnum(object, message, textReceiver);
-        }
-        else {
-            enterComposite(object, message, (LoadDescription<T>) description, textReceiver);
+            return (T) enterEnum(message, (LoadDescription<Enum>) description, textReceiver);
+        } else {
+            return enterComposite(message, description, textReceiver);
         }
     }
-    public abstract  <T> void enterEnum(T object, String message, BaseTextReceiver textReceiver);
 
-    public abstract <T> void enterWrapper(T object, String message, BaseTextReceiver textReceiver);
+    public abstract <T extends LoadDescription<Enum>> T enterEnum(String message, T description, BaseTextReceiver textReceiver);
 
-    public abstract void enterString(String s, String message, BaseTextReceiver textReceiver);
+    public abstract <T extends LoadDescription<Number>> T enterWrapper(String message, T description, BaseTextReceiver textReceiver);
 
-    public <T> void enterComposite(T object, String message, LoadDescription<T> description, BaseTextReceiver textReceiver) {
+    public abstract LoadDescription<String> enterString(String message, LoadDescription<String> description, BaseTextReceiver textReceiver);
+
+    private <T extends LoadDescription<?>> T enterComposite(String message, T description, BaseTextReceiver textReceiver) {
         textReceiver.print(message);
-        object = description.builder.build();
+        List<LoadDescription<?>> fields = description.getFields();
         for (var field : description.getFields()) {
-            enter((T)object, field.getDescription(), field, textReceiver);
+            fields.add(enter(field.getDescription(), field, textReceiver));
         }
+        description.getFields().clear();
+        description.setFieldsOfObject(fields);
+        return description;
     }
 
     private boolean isWrapper(Class<?> type) {
@@ -34,4 +38,3 @@ public abstract class AbstractLoader {
                 || type.equals(Character.class) || type.equals(Boolean.class);
     }
 }
-

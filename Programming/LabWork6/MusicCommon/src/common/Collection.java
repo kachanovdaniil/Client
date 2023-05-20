@@ -6,11 +6,12 @@
 package common;
 import result.Result;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.TreeSet;
 
-public class Collection<T extends Comparable & IDAccess> {
+public class Collection<T extends Comparable & IDAccess> implements Serializable {
 
     private TreeSet<T> collection = new TreeSet<T>();
 

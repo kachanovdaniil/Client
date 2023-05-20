@@ -12,7 +12,7 @@ public class CoordinatesDescription extends LoadDescription<Coordinates> {
     {
         build = Buildable::build;
         fields = Arrays.asList(
-                new LoadDescription<Long>("X", (new CoordinatesBuilder())::setX, null, Integer.class),
+                new LoadDescription<Long>("X", new CoordinatesBuilder()::setX, null, Long.class),
                 new LoadDescription<Float>("Y", (new CoordinatesBuilder())::setY, null, Float.class));
     }
 

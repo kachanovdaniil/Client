@@ -3,9 +3,10 @@ package common;
 import caller.Callable;
 import caller.Caller;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class CommandDescription implements Callable {
+public class CommandDescription implements Callable, Serializable {
     private String name;
     private List<String> oneLineArguments;
     private List<Object> ObjectArgument;
