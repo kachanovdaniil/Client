@@ -1,28 +1,34 @@
 package commands;
 
+import common.Album;
+import common.MusicBand;
+import receivers.MusicReceiver;
 import receivers.Receiver;
 import result.Result;
+
+import java.util.TreeSet;
 
 /**
  * Class FilterByBestAlbum for filtering the collection by the bestAlbum field.
  */
-public class FilterByBestAlbum extends Command {
+public class FilterByBestAlbum extends Command<MusicReceiver>{
+    Album album;
 
     /**
      * Constructor for creating a command object.
+     * @param album bestAlbum
      */
-
-    public FilterByBestAlbum() {
-        super("filter_by_best_album {bestAlbum} : print elements whose bestAlbum field value is equivalent to the specified one", 0);
+    public FilterByBestAlbum(Album album) {
+        super(MusicReceiver.GetInstance());
+        this.album = album;
     }
 
     /**
      * Method execute calls the filterByBestAlbum() method of the receiver object.
-     * @param receiver an object that will execute the command
      * @return result of executing the command (the result of the filterByBestAlbum() method of the receiver object)
      */
     @Override
-    public Result<Void> execute(Receiver receiver, String args[]) {
-        return receiver.filterByBestAlbum();
+    public Result<TreeSet<MusicBand>> execute() {
+        return receiver.filterByBestAlbum(album);
     }
 }

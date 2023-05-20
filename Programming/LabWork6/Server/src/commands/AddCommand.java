@@ -1,33 +1,30 @@
 package commands;
 
-import receivers.ConsoleReceiver;
-import receivers.Receiver;
+import common.MusicBand;
+import receivers.MusicReceiver;
 import result.Result;
 
 /**
-
- Class AddCommand for adding a new element to the collection.
+ * Class AddCommand for adding a new element to the collection.
  */
-public class AddCommand extends Command {
-
-    private ConsoleReceiver receiver;
+public class AddCommand extends Command<MusicReceiver> {
+    MusicBand element;
 
     /**
      * Constructor for creating a command object.
+     * @param element
      */
-    public AddCommand() {
-        super("add {element} : add a new element to the collection", 0);
+    public AddCommand(MusicBand element) {
+        super(MusicReceiver.GetInstance());
+        this.element = element;
     }
 
     /**
-
-     Method execute calls the add() method of the receiver object.
-     @param receiver an object that will execute the command
-     @return the result of executing the command (the result of the add() method of the receiver object)
-
+     * Method execute calls the add() method of the receiver object.
+     * @return the result of executing the command (the result of the add() method of the receiver object)
      */
     @Override
-    public Result<Void> execute(Receiver receiver, String args[]) {
-        return receiver.add();
+    public Result<Void> execute() {
+        return receiver.add(element);
     }
 }

@@ -1,46 +1,21 @@
 package commands;
 
+import common.IDAccess;
+import common.MusicBand;
 import receivers.*;
 import result.Result;
+/**
+ * Базовый интерфейс для всех возможных команд.
+ */
+public abstract class Command<T extends Receiver<?>> {
+    T receiver;
 
-public abstract class Command {
-
-    /**
-
-     Constructor for creating a command object.
-     @param description the description of the command
-     */
-    private String description;
-    private int args;
-    public Command(String description, int args) {
-        this.description = description;
-        this.args = args;
+    public Command(T receiver){
+        this.receiver = receiver;
     }
-
     /**
-
-     A method that will be called when executing the command.
-     @param receiver an object that will execute the command
-     @return the result of executing the command
+     * A method that will be called when executing the command.
+     * @return the result of executing the command
      */
-    public abstract Result<Void> execute(Receiver receiver, String args[]);
-
-    /**
-
-     A method that returns the description of the command.
-     @return the description of the command
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * Returns the number of arguments
-     * @return number of arguments
-     */
-
-    public int getArgs() {
-    	return args;
-    }
-
+    public abstract Result<?> execute();
 }
