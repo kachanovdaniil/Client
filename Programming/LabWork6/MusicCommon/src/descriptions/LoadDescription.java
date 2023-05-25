@@ -1,4 +1,4 @@
-package managers;
+package descriptions;
 
 import builders.Buildable;
 
@@ -20,6 +20,10 @@ public class LoadDescription<T> {
         this.fieldOfDescriptionSetter = fieldSetter;
         this.builder = builder;
         this.type = type;
+    }
+
+    public LoadDescription(Class<T> type){
+        this(null, null, null, type);
     }
 
     public Function<T, ?> getFieldOfDescriptionSetter() {
@@ -48,8 +52,8 @@ public class LoadDescription<T> {
         return fields;
     }
 
-    public T build() {
-        return build.apply(builder);
+    public void build() {
+        value = build.apply(builder);
     }
 
     public void setFieldsOfObject(List<LoadDescription<?>> fields) {
@@ -64,6 +68,11 @@ public class LoadDescription<T> {
     public T getValue() {
         return value;
     }
+
+    public void setFieldOfDescriptionSetter(Function<T, ?> fieldOfDescriptionSetter) {
+        this.fieldOfDescriptionSetter = fieldOfDescriptionSetter;
+    }
+
 
 
 }

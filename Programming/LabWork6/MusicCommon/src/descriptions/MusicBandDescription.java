@@ -7,7 +7,6 @@ import common.Album;
 import common.Coordinates;
 import common.MusicBand;
 import common.MusicGenre;
-import managers.LoadDescription;
 
 import java.time.LocalDate;
 import java.util.Arrays;

@@ -3,7 +3,6 @@ package descriptions;
 import builders.Buildable;
 import builders.CoordinatesBuilder;
 import common.Coordinates;
-import managers.LoadDescription;
 
 import java.util.Arrays;
 import java.util.function.Function;
